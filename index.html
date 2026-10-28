@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090c19">
+<title>NEXORA AI — Think Beyond</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#090c19;--panel:#11172a;--line:#252e49;--blue:#91aaff;--text:#f4f6ff;--muted:#929db9}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;min-height:100vh}
+header{height:72px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:#0b0e1bee;position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:3px;font-size:17px}
+.logo{font-size:29px;color:#91aaff}
+.brand span:last-child{color:var(--blue)}
+.menu{border:1px solid var(--line);background:var(--panel);color:white;padding:10px 13px;border-radius:12px;font-size:20px}
+main{max-width:850px;margin:auto;padding:34px 19px 110px}
+.eyebrow{color:var(--blue);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
+h1{font-size:clamp(42px,9vw,68px);line-height:1.04;letter-spacing:-2.8px;margin-bottom:20px}
+h1 span{color:var(--blue)}
+.subtitle{font-size:16px;color:var(--muted);line-height:1.7;max-width:520px}
+.hero{padding:36px 0 30px}
+.searchbox{margin-top:28px;background:var(--panel);border:1px solid #35415f;border-radius:18px;padding:15px;box-shadow:0 12px 50px #05081555}
+textarea{width:100%;min-height:75px;background:transparent;border:0;outline:0;color:white;font:16px system-ui;resize:vertical}
+textarea::placeholder{color:#8995b2}
+.searchrow{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font-size:12px}
+.primary{background:linear-gradient(135deg,#a4b8ff,#647fe4);border:0;border-radius:12px;color:#080d20;font-size:17px;font-weight:800;padding:12px 18px}
+.sectiontitle{font-size:12px;color:var(--muted);letter-spacing:2px;margin:35px 0 15px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:linear-gradient(145deg,#141b30,#0e1323);border:1px solid var(--line);border-radius:16px;padding:19px 16px;min-height:120px;text-align:left;color:var(--text)}
+.icon{font-size:24px;margin-bottom:13px}
+.card strong{display:block;font-size:15px;margin-bottom:6px}
+.card small{color:var(--muted);font-size:12px;line-height:1.5}
+#result{display:none;margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:15px;background:#0d1222;white-space:pre-wrap;line-height:1.7;color:#dce4ff}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:6;display:flex;justify-content:space-around;background:#0a0e1af5;border-top:1px solid var(--line);padding:12px 3px calc(12px + env(safe-area-inset-bottom))}
+nav button{background:none;border:0;color:var(--muted);font-size:11px;padding:4px}
+nav button b{display:block;font-size:20px;margin-bottom:3px;font-weight:500}
+nav button.active{color:var(--blue)}
+footer{text-align:center;color:#66718e;font-size:11px;margin-top:32px}
+@media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding-top:55px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">◖▰◗</span><div>NEXORA <span>AI</span></div></div>
+  <button class="menu" onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})" aria-label="Explore tools">☰</button>
+</header>
+<main>
+  <section class="hero">
+    <div class="eyebrow">✦ Your intelligent workspace</div>
+    <h1>Think Beyond.<br><span>Discover More.</span></h1>
+    <p class="subtitle">One workspace. New possibilities. Explore ideas, ask questions and bring your next big thought to life.</p>
+    <div class="searchbox">
+      <textarea id="prompt" placeholder="Ask a question or explore an idea..."></textarea>
+      <div class="searchrow"><span>✦ NEXORA AI</span><button class="primary" onclick="askNexora()">Explore ↗</button></div>
+    </div>
+    <div id="result"></div>
+  </section>
+  <section id="tools">
+    <div class="sectiontitle">EXPLORE YOUR WORKSPACE</div>
+    <div class="grid">
+      <button class="card" onclick="chooseTool('AI Search')"><div class="icon">⌕</div><strong>AI Search</strong><small>Explore topics and questions</small></button>
+      <button class="card" onclick="chooseTool('AI Chat')"><div class="icon">◌</div><strong>AI Chat</strong><small>Have a conversation with AI</small></button>
+      <button class="card" onclick="chooseTool('AI Answers')"><div class="icon">✧</div><strong>AI Answers</strong><small>Understand ideas clearly</small></button>
+      <button class="card" onclick="chooseTool('Smart Search')"><div class="icon">◎</div><strong>Smart Search</strong><small>Find the direction you need</small></button>
+      <button class="card" onclick="chooseTool('AI Coding')"><div class="icon">‹ ›</div><strong>AI Coding</strong><small>Build and learn with code</small></button>
+      <button class="card" onclick="chooseTool('AI Image Generation')"><div class="icon">▧</div><strong>AI Images</strong><small>Turn ideas into visuals</small></button>
+    </div>
+  </section>
+  <footer>NEXORA AI · THINK BEYOND, DISCOVER MORE</footer>
+</main>
+<nav>
+  <button class="active" onclick="goHome(this)"><b>⌂</b>Home</button>
+  <button onclick="chooseTool('AI Search',this)"><b>⌕</b>Search</button>
+  <button onclick="chooseTool('AI Chat',this)"><b>◌</b>Chat</button>
+  <button onclick="chooseTool('AI Answers',this)"><b>✧</b>Answers</button>
+  <button onclick="chooseTool('Smart Search',this)"><b>◎</b>Smart</button>
+</nav>
+<script>
+let selectedTool='AI Search';
+function chooseTool(tool,button){
+  selectedTool=tool;
+
+  document.getElementById('prompt').placeholder =
+    tool+': Ask or describe what you need...';
+
+  const chatPanel=document.getElementById('chat-panel');
+
+  if(chatPanel){
+    chatPanel.style.display =
+      tool==='AI Chat'?'block':'none';
+  }
+
+  if(button){
+    document.querySelectorAll('nav button').forEach(b=>{
+      b.classList.remove('active');
+    });
+    button.classList.add('active');
+  }
+
+  if(tool==='AI Chat' && chatPanel){
+    chatPanel.scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+    document.getElementById('chat-question').focus();
+  }else{
+    document.getElementById('tools').scrollIntoView({
+      behavior:'smooth'
+    });
+    document.getElementById('prompt').focus();
+  }
+  }
+function goHome(button){
+ document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+ button.classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function askNexora(){
+ const q=document.getElementById('prompt').value.trim();
+ const r=document.getElementById('result');
+ r.style.display='block';
+ r.textContent=q?'Your idea: '+q+'\n\nSelected workspace: '+selectedTool+'\n\nThe NEXORA AI interface is ready. To generate real AI answers, we will connect a suitable AI service in a later step.':'Type a question or idea above to get started.';
+ r.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+</script>
+ <section id="chat-panel" style="display:none;margin:20px 0;padding:18px;background:#11172a;border:1px solid #252e49;border-radius:16px;color:#f4f6ff;">
+  <h2 style="margin-bottom:10px;color:#91aaff;">NEXORA AI Chat</h2>
+  <p style="color:#929db9;margin-bottom:15px;">Ask a question and explore your ideas.</p>
+  <textarea id="chat-question" placeholder="Type your message..." style="width:100%;min-height:90px;padding:12px;background:#090c19;color:white;border:1px solid #35415f;border-radius:10px;"></textarea>
+  <button onclick="sendChat()" style="margin-top:12px;padding:12px 18px;background:#91aaff;color:#090c19;border:0;border-radius:10px;font-weight:bold;">Send ↗</button>
+  <div id="chat-reply" style="margin-top:15px;white-space:pre-wrap;line-height:1.6;"></div>
+</section>
+<script>
+function sendChat(){
+  const q=document.getElementById('chat-question').value.trim();
+  const r=document.getElementById('chat-reply');
+  r.textContent=q?'Your message: '+q+'\n\nAI connection abhi setup nahi hua hai. Hum agle steps mein ise connect karenge.':'Pehle apna message likho.';
+}
+</script>
+</body>
+</html>
