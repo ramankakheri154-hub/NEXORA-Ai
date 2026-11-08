@@ -132,11 +132,36 @@ function askNexora(){
   <div id="chat-reply" style="margin-top:15px;white-space:pre-wrap;line-height:1.6;"></div>
 </section>
 <script>
-function sendChat(){
-  const q=document.getElementById('chat-question').value.trim();
-  const r=document.getElementById('chat-reply');
-  r.textContent=q?'Your message: '+q+'\n\nAI connection abhi setup nahi hua hai. Hum agle steps mein ise connect karenge.':'Pehle apna message likho.';
-}
+async function sendChat(){
+  const q = document.getElementById('chat-question');
+  const r = document.getElementById('chat-reply');
+  const message = q.value.trim();
+
+  if(!message){
+    r.textContent = "Please enter a message.";
+    return;
+  }
+
+  r.textContent = "Thinking...";
+
+  try{
+    const response = await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message})
+    });
+
+    const data = await response.json();
+
+    if(!response.ok){
+      throw new Error(data.error || "AI request failed");
+    }
+
+    r.textContent = data.reply;
+  }catch(error){
+    r.textContent = "Error: " + error.message;
+  }
+  }
 </script>
 </body>
 </html>
