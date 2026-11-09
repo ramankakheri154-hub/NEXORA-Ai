@@ -196,6 +196,131 @@ footer {
     background-position: 62% center !important;
   }
 }
+ /* ===== NEXORA AI PREMIUM DESIGN ===== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #030711 !important;
+  color: #ffffff !important;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: rgba(3, 7, 17, 0.95) !important;
+  border-bottom: 1px solid rgba(65, 145, 255, 0.25);
+  padding: 16px 6% !important;
+}
+
+.brand {
+  font-size: 23px !important;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.brand span,
+.hero h1 span {
+  color: #168cff !important;
+}
+
+/* HERO SPACE BACKGROUND */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 620px;
+  padding: 90px 20px 65px !important;
+  overflow: hidden;
+  border: 1px solid #173c70;
+  border-radius: 20px;
+  background:
+    linear-gradient(90deg, rgba(2,6,18,.96), rgba(2,6,18,.55), rgba(2,6,18,.15)),
+    linear-gradient(0deg, #030711 0%, transparent 45%),
+    url("https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=1600")
+    center right / cover no-repeat !important;
+  box-shadow: 0 0 45px rgba(0,110,255,.13);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 850px;
+  margin: auto;
+  text-align: center;
+}
+
+.eyebrow {
+  color: #45aaff !important;
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 8vw, 76px) !important;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin: 15px 0;
+  text-shadow: 0 0 30px rgba(0,120,255,.3);
+}
+
+.hero h2 {
+  font-size: clamp(20px, 4vw, 30px);
+  margin: 10px 0;
+  color: #eaf3ff;
+}
+
+.hero .subtitle {
+  max-width: 550px;
+  margin: 18px auto;
+  color: #b9c9df !important;
+  line-height: 1.7;
+}
+
+/* SEARCH BAR */
+
+.searchbox {
+  max-width: 650px;
+  margin: 35px auto 0 !important;
+  padding: 12px 16px !important;
+  background: rgba(5, 13, 30, .92) !important;
+  border: 1px solid #268cff !important;
+  border-radius: 50px !important;
+  box-shadow: 0 0 28px rgba(0,110,255,.25);
+}
+
+.searchbox textarea {
+  width: 100%;
+  min-height: 45px;
+  background: transparent !important;
+  color: white !important;
+  border: none !important;
+  outline: none;
+  resize: vertical;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.searchrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  color: #73baff;
+  font-size: 13px;
+}
+
+.primary {
+  background: linear-gradient(120deg, #087cff, #513bff) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 30px !important;
+  padding: 12px 22px !important;
+  font-weight: 700;
+}
 </style>
 </head>
 <body>
@@ -205,26 +330,82 @@ footer {
 </header>
 <main>
   <section class="hero">
-    <div class="eyebrow">✦ Your intelligent workspace</div>
-    <h1>Think Beyond.<br><span>Discover More.</span></h1>
-    <p class="subtitle">One workspace. New possibilities. Explore ideas, ask questions and bring your next big thought to life.</p>
+  <div class="hero-content">
+
+    <div class="eyebrow">✦ THE NEXT GENERATION OF INTELLIGENCE</div>
+
+    <h1>NEXORA <span>AI</span></h1>
+
+    <h2>Think Beyond. Discover More.</h2>
+
+    <p class="subtitle">
+      Your all-in-one AI platform for search, chat, answers,
+      coding and creativity.
+    </p>
+
     <div class="searchbox">
-      <textarea id="prompt" placeholder="Ask a question or explore an idea..."></textarea>
-      <div class="searchrow"><span>✦ NEXORA AI</span><button class="primary" onclick="askNexora()">Explore ↗</button></div>
+      <textarea id="prompt" placeholder="Ask anything..."></textarea>
+
+      <div class="searchrow">
+        <span>✦ NEXORA AI</span>
+        <button class="primary" onclick="askNexora()">Explore ↗</button>
+      </div>
     </div>
+
     <div id="result"></div>
-  </section>
-  <section id="tools">
-    <div class="sectiontitle">EXPLORE YOUR WORKSPACE</div>
-    <div class="grid">
-      <button class="card" onclick="chooseTool('AI Search')"><div class="icon">⌕</div><strong>AI Search</strong><small>Explore topics and questions</small></button>
-      <button class="card" onclick="chooseTool('AI Chat')"><div class="icon">◌</div><strong>AI Chat</strong><small>Have a conversation with AI</small></button>
-      <button class="card" onclick="chooseTool('AI Answers')"><div class="icon">✧</div><strong>AI Answers</strong><small>Understand ideas clearly</small></button>
-      <button class="card" onclick="chooseTool('Smart Search')"><div class="icon">◎</div><strong>Smart Search</strong><small>Find the direction you need</small></button>
-      <button class="card" onclick="chooseTool('AI Coding')"><div class="icon">‹ ›</div><strong>AI Coding</strong><small>Build and learn with code</small></button>
-      <button class="card" onclick="chooseTool('AI Image Generation')"><div class="icon">▧</div><strong>AI Images</strong><small>Turn ideas into visuals</small></button>
+
+    <div class="hero-tools">
+      <button onclick="chooseTool('AI Search')">⌕ AI Search</button>
+      <button onclick="chooseTool('AI Chat')">◌ AI Chat</button>
+      <button onclick="chooseTool('AI Answers')">✧ AI Answers</button>
+      <button onclick="chooseTool('AI Coding')">‹ › AI Coding</button>
+      <button onclick="chooseTool('AI Image Generation')">▧ AI Images</button>
     </div>
-  </section>
+
+  </div>
+</section>
+
+<section id="tools">
+  <div class="sectiontitle">WHY NEXORA AI</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon">ϟ</div>
+      <strong>Blazing Fast</strong>
+      <small>Fast and intelligent experience</small>
+    </div>
+
+    <div class="card">
+      <div class="icon">♧</div>
+      <strong>Privacy First</strong>
+      <small>Your experience matters</small>
+    </div>
+
+    <div class="card">
+      <div class="icon">◎</div>
+      <strong>Global Access</strong>
+      <small>Explore ideas without limits</small>
+    </div>
+
+    <div class="card">
+      <div class="icon">▣</div>
+      <strong>Next-Gen AI</strong>
+      <small>Powerful AI capabilities</small>
+    </div>
+
+    <div class="card">
+      <div class="icon">☆</div>
+      <strong>Premium Design</strong>
+      <small>A beautiful workspace</small>
+    </div>
+
+    <div class="card">
+      <div class="icon">∞</div>
+      <strong>More Possibilities</strong>
+      <small>Discover something new</small>
+    </div>
+  </div>
+</section>
   <footer>NEXORA AI · THINK BEYOND, DISCOVER MORE</footer>
 </main>
 <nav>
