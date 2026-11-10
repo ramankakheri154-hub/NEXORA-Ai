@@ -42,11 +42,11 @@ nmodule.exports = async (req, res) => {
     const data = await response.json();
 
     if (!response.ok) {
-      return res.status(502).json({
-        error: "AI provider request failed"
-      });
+  return res.status(502).json({
+    error: data.error?.message || "Unknown Groq API error",
+    status: response.status
+  });
     }
-
     return res.status(200).json({
       reply: data.choices[0].message.content
     });
