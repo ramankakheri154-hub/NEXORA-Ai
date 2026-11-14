@@ -6,19 +6,19 @@ module.exports = async (req, res) => {
   }
 
   try {
+    const apiKey = process.env.GROQ_API_KEY;
+
+    if (!apiKey) {
+      return res.status(500).json({
+        error: "GROQ_API_KEY is missing in Vercel"
+      });
+    }
+
     const { message } = req.body || {};
 
     if (!message || typeof message !== "string") {
       return res.status(400).json({
         error: "Message is required"
-      });
-    }
-
-    const apiKey = process.env.GROQ_API_KEY;
-
-    if (!apiKey) {
-      return res.status(500).json({
-        error: "AI service is not configured"
       });
     }
 
@@ -31,9 +31,12 @@ module.exports = async (req, res) => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          model: "llama-3.3-70b-versatile",
+          model: "openai/gpt-oss-20b",
           messages: [
-            { role: "user", content: message }
+            {
+              role: "user",
+              content: message
+            }
           ]
         })
       }
@@ -43,12 +46,13 @@ module.exports = async (req, res) => {
 
     if (!response.ok) {
       return res.status(502).json({
-        error: "AI provider request failed"
+        error: data.error?.message || "Groq API request failed",
+        status: response.status
       });
     }
 
     return res.status(200).json({
-      reply: data.choices[0].message.content
+      reply: data.choices?.[0]?.message?.content || "No response received"
     });
 
   } catch (error) {
