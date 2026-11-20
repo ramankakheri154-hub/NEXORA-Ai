@@ -5,331 +5,505 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090c19">
 <title>NEXORA AI — Think Beyond</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#090c19;--panel:#11172a;--line:#252e49;--blue:#91aaff;--text:#f4f6ff;--muted:#929db9}
-body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;min-height:100vh}
-header{height:72px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:#0b0e1bee;position:sticky;top:0;z-index:5}
-.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:3px;font-size:17px}
-.logo{font-size:29px;color:#91aaff}
+
+:root{
+  --bg:#090c19;
+  --panel:#11172a;
+  --line:#252e49;
+  --blue:#91aaff;
+  --text:#f4f6ff;
+  --muted:#929db9;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,sans-serif;
+  min-height:100vh;
+}
+
+header{
+  height:72px;
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  background:#0b0e1bee;
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:800;
+  letter-spacing:2px;
+  font-size:19px;
+}
+
+.logo{
+  font-size:29px;
+  color:#91aaff;
+}
+
 .brand span:last-child{color:var(--blue)}
-.menu{border:1px solid var(--line);background:var(--panel);color:white;padding:10px 13px;border-radius:12px;font-size:20px}
-main{max-width:850px;margin:auto;padding:34px 19px 110px}
-.eyebrow{color:var(--blue);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
-h1{font-size:clamp(42px,9vw,68px);line-height:1.04;letter-spacing:-2.8px;margin-bottom:20px}
-h1 span{color:var(--blue)}
-.subtitle{font-size:16px;color:var(--muted);line-height:1.7;max-width:520px}
-.hero{padding:36px 0 30px}
-.searchbox{margin-top:28px;background:var(--panel);border:1px solid #35415f;border-radius:18px;padding:15px;box-shadow:0 12px 50px #05081555}
-textarea{width:100%;min-height:75px;background:transparent;border:0;outline:0;color:white;font:16px system-ui;resize:vertical}
+
+.menu{
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:white;
+  padding:10px 13px;
+  border-radius:12px;
+  font-size:20px;
+}
+
+main{
+  max-width:950px;
+  margin:auto;
+  padding:25px 16px 110px;
+}
+
+.hero{
+  position:relative;
+  isolation:isolate;
+  min-height:570px;
+  padding:85px 20px 65px;
+  overflow:hidden;
+  border-radius:22px;
+  border:1px solid #263c67;
+  background:
+    linear-gradient(90deg,rgba(3,7,18,.94),rgba(3,7,18,.55),rgba(3,7,18,.12)),
+    linear-gradient(0deg,#050914 0%,transparent 55%),
+    url("https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=1600")
+    center right/cover no-repeat;
+  box-shadow:0 0 45px rgba(25,105,255,.15);
+  text-align:center;
+}
+
+.hero-content{
+  position:relative;
+  z-index:1;
+  max-width:850px;
+  margin:auto;
+}
+
+.eyebrow{
+  color:#45aaff;
+  font-size:12px;
+  letter-spacing:3px;
+  margin-bottom:24px;
+}
+
+h1{
+  font-size:clamp(42px,8vw,76px);
+  font-weight:900;
+  letter-spacing:-2px;
+  margin:15px 0;
+}
+
+h1 span{color:#168cff}
+
+.hero h2{
+  font-size:clamp(20px,4vw,30px);
+  margin:10px 0;
+  color:#eaf3ff;
+}
+
+.subtitle{
+  max-width:550px;
+  margin:18px auto;
+  color:#b9c9df;
+  line-height:1.7;
+  font-size:14px;
+}
+
+.searchbox{
+  max-width:650px;
+  margin:35px auto 0;
+  padding:12px 16px;
+  background:rgba(5,13,30,.92);
+  border:1px solid #268cff;
+  border-radius:18px;
+  box-shadow:0 0 28px rgba(0,110,255,.25);
+}
+
+textarea{
+  width:100%;
+  min-height:65px;
+  background:transparent;
+  color:white;
+  border:0;
+  outline:0;
+  resize:vertical;
+  font:16px system-ui;
+  padding:10px;
+}
+
 textarea::placeholder{color:#8995b2}
-.searchrow{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font-size:12px}
-.primary{background:linear-gradient(135deg,#a4b8ff,#647fe4);border:0;border-radius:12px;color:#080d20;font-size:17px;font-weight:800;padding:12px 18px}
-.sectiontitle{font-size:12px;color:var(--muted);letter-spacing:2px;margin:35px 0 15px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{background:linear-gradient(145deg,#141b30,#0e1323);border:1px solid var(--line);border-radius:16px;padding:19px 16px;min-height:120px;text-align:left;color:var(--text)}
+
+.searchrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  color:#73baff;
+  font-size:13px;
+}
+
+.primary{
+  background:linear-gradient(120deg,#087cff,#513bff);
+  color:white;
+  border:0;
+  border-radius:30px;
+  padding:12px 22px;
+  font-weight:700;
+  font-size:15px;
+}
+
+#result{
+  display:none;
+  margin-top:18px;
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:#0d1222;
+  white-space:pre-wrap;
+  line-height:1.7;
+  overflow-wrap:anywhere;
+}
+
+.hero-tools{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:9px;
+  margin-top:24px;
+}
+
+.hero-tools button{
+  padding:10px 13px;
+  border-radius:20px;
+  border:1px solid #345078;
+  background:#09172c;
+  color:white;
+  font-size:12px;
+}
+
+.sectiontitle{
+  font-size:13px;
+  color:var(--muted);
+  letter-spacing:2px;
+  margin:35px 0 15px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.card{
+  background:#14171d;
+  border:1px solid #292f39;
+  border-radius:16px;
+  padding:19px 16px;
+  min-height:120px;
+}
+
 .icon{font-size:24px;margin-bottom:13px}
 .card strong{display:block;font-size:15px;margin-bottom:6px}
 .card small{color:var(--muted);font-size:12px;line-height:1.5}
-#result{display:none;margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:15px;background:#0d1222;white-space:pre-wrap;line-height:1.7;color:#dce4ff}
-nav{position:fixed;bottom:0;left:0;right:0;z-index:6;display:flex;justify-content:space-around;background:#0a0e1af5;border-top:1px solid var(--line);padding:12px 3px calc(12px + env(safe-area-inset-bottom))}
-nav button{background:none;border:0;color:var(--muted);font-size:11px;padding:4px}
-nav button b{display:block;font-size:20px;margin-bottom:3px;font-weight:500}
-nav button.active{color:var(--blue)}
-footer{text-align:center;color:#66718e;font-size:11px;margin-top:32px}
-@media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding-top:55px}}
-  #chat-panel{
-  margin-bottom:120px !important;
-  padding-bottom:30px !important;
+
+footer{
+  text-align:center;
+  color:#858d99;
+  font-size:11px;
+  margin-top:32px;
+  padding-top:20px;
+  border-top:1px solid #252a33;
 }
 
-#chat-reply{
+/* PREMIUM CHAT INTERFACE */
+
+#chat-panel{
+  display:none;
+  margin:25px 0 120px;
+  background:#ffffff;
+  color:#202124;
+  border-radius:20px;
+  border:1px solid #e5e7eb;
+  overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.15);
+}
+
+.chat-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:16px;
+  border-bottom:1px solid #eceef1;
+  background:#fff;
+}
+
+.chat-brand{
+  font-size:17px;
+  font-weight:800;
+  color:#17191d;
+}
+
+.chat-brand span{color:#647fe4}
+
+.chat-actions{
+  display:flex;
+  gap:8px;
+}
+
+.chat-action{
+  border:1px solid #e1e4e8;
+  background:white;
+  color:#30343b;
+  padding:9px 11px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:600;
+}
+
+#history-panel{
+  display:none;
+  padding:12px;
+  background:#f8f9fb;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.history-title{
+  font-size:12px;
+  color:#737984;
+  margin-bottom:9px;
+}
+
+.history-item{
+  width:100%;
+  display:block;
+  text-align:left;
+  padding:12px;
+  margin-bottom:7px;
+  border:1px solid #e7e9ed;
+  background:white;
+  border-radius:10px;
+  color:#30343b;
+  font-size:13px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.history-item.active{
+  border-color:#8197e9;
+  background:#f0f3ff;
+}
+
+#chat-messages{
+  min-height:300px;
+  max-height:55vh;
+  overflow-y:auto;
+  padding:18px 14px;
+  background:#fff;
+  scroll-behavior:smooth;
+}
+
+.empty-chat{
+  text-align:center;
+  padding:65px 15px;
+  color:#7b818b;
+}
+
+.empty-chat h2{
+  font-size:23px;
+  color:#242830;
+  margin-bottom:10px;
+}
+
+.empty-chat p{font-size:13px;line-height:1.6}
+
+.message{
+  display:flex;
+  flex-direction:column;
+  margin-bottom:20px;
+}
+
+.message.user{align-items:flex-end}
+.message.assistant{align-items:flex-start}
+
+.message-label{
+  font-size:11px;
+  color:#858b95;
+  margin-bottom:5px;
+}
+
+.message-content{
+  max-width:90%;
+  padding:12px 15px;
+  border-radius:16px;
+  font-size:14px;
+  line-height:1.7;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
-  max-height:40vh;
-  overflow-y:auto;
-  padding:14px;
-  margin-bottom:30px;
+}
+
+.message.user .message-content{
+  background:#e9efff;
+  color:#202a42;
+  border-bottom-right-radius:5px;
+}
+
+.message.assistant .message-content{
+  background:#f4f5f7;
+  color:#252830;
+  border-bottom-left-radius:5px;
+}
+
+.message.error .message-content{
+  background:#fff0f0;
+  color:#a52b2b;
+}
+
+.chat-composer{
+  padding:13px;
+  border-top:1px solid #eceef1;
+  background:#fff;
+}
+
+.composer-box{
+  border:1px solid #dfe2e7;
+  border-radius:16px;
+  padding:10px;
+  background:#fff;
+}
+
+#chat-question{
+  width:100%;
+  min-height:55px;
+  max-height:150px;
+  resize:vertical;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:#202124;
+  font:14px system-ui;
+  padding:5px;
+}
+
+#chat-question::placeholder{color:#969ba4}
+
+.composer-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:7px;
+}
+
+.composer-bottom small{
+  color:#969ba4;
+  font-size:10px;
+}
+
+#send-button{
+  background:#202124;
+  color:white;
+  border:0;
+  border-radius:11px;
+  padding:10px 17px;
+  font-size:13px;
+  font-weight:700;
+}
+
+#send-button:disabled{
+  opacity:.5;
+}
+
+.chat-note{
+  text-align:center;
+  color:#969ba4;
+  font-size:10px;
+  padding:9px;
+  background:#fff;
 }
 
 nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
   z-index:1000;
-         }
-  /* NEXORA PREMIUM BRAND UPGRADE */
-
-body {
-  background: #090A0D !important;
-  color: #F5F5F5 !important;
-  font-family: Arial, sans-serif;
+  display:flex;
+  justify-content:space-around;
+  background:#0a0e1af5;
+  border-top:1px solid var(--line);
+  padding:12px 3px calc(12px + env(safe-area-inset-bottom));
 }
 
-header {
-  background: #101216 !important;
-  border-bottom: 1px solid #252A33;
+nav button{
+  background:none;
+  border:0;
+  color:var(--muted);
+  font-size:11px;
+  padding:4px;
 }
 
-.brand {
-  color: #FFFFFF !important;
-  font-weight: 800;
-  letter-spacing: 1px;
+nav button b{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
+  font-weight:500;
 }
 
-.hero {
-  text-align: center;
-  padding: 65px 18px 45px;
+nav button.active{color:var(--blue)}
+
+@media(min-width:600px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
-.eyebrow {
-  color: #8AB4FF !important;
-  font-size: 12px;
-  letter-spacing: 2px;
-}
-
-h1 {
-  color: #FFFFFF !important;
-  font-size: clamp(32px, 8vw, 52px);
-  font-weight: 800;
-  letter-spacing: -1.5px;
-}
-
-h1 span {
-  color: #8AB4FF !important;
-}
-
-.subtitle {
-  color: #A5AAB4 !important;
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.searchbox {
-  background: #15191F !important;
-  border: 1px solid #303743 !important;
-  border-radius: 18px;
-  padding: 12px;
-}
-
-textarea {
-  color: white !important;
-  background: transparent !important;
-}
-
-textarea::placeholder {
-  color: #858D99 !important;
-}
-
-.card {
-  background: #14171D !important;
-  border: 1px solid #292F39 !important;
-  border-radius: 15px;
-  color: #F5F5F5 !important;
-  transition: 0.25s;
-}
-
-.card:active {
-  border-color: #8AB4FF !important;
-}
-
-.sectiontitle {
-  color: #E8EBF2 !important;
-  font-size: 15px;
-  letter-spacing: 1px;
-}
-
-footer {
-  color: #858D99 !important;
-  border-top: 1px solid #252A33;
-                              }
-  /* NEXORA EARTH SPACE HOMEPAGE */
-
-.hero {
-  position: relative;
-  isolation: isolate;
-  min-height: 570px;
-  padding: 85px 20px 65px !important;
-  overflow: hidden;
-  border-radius: 22px;
-  background:
-    linear-gradient(90deg, rgba(3,7,18,.94), rgba(3,7,18,.55), rgba(3,7,18,.12)),
-    linear-gradient(0deg, #050914 0%, transparent 55%),
-    url("https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=1600") center right / cover no-repeat !important;
-  border: 1px solid #263c67;
-  box-shadow: 0 0 45px rgba(25,105,255,.15);
-}
-
-.hero > * {
-  position: relative;
-  z-index: 1;
-}
-
-.hero h1 {
-  font-size: clamp(38px, 8vw, 68px) !important;
-  font-weight: 800;
-  letter-spacing: -2px;
-  text-shadow: 0 3px 25px #000;
-}
-
-.hero .subtitle {
-  max-width: 550px;
-  margin: 18px auto;
-  color: #d0d9eb !important;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 3px;
-}
-
-.searchbox {
-  max-width: 650px;
-  margin: 35px auto 0 !important;
-  background: rgba(8,15,32,.88) !important;
-  border: 1px solid #398bff !important;
-  border-radius: 18px !important;
-  box-shadow: 0 0 25px rgba(30,110,255,.2);
-}
-
-@media(max-width:600px) {
-  .hero {
-    min-height: 540px;
-    padding: 75px 15px 45px !important;
-    background-position: 62% center !important;
+@media(max-width:600px){
+  .hero{
+    min-height:540px;
+    padding:75px 15px 45px;
+    background-position:62% center;
   }
-}
- /* ===== NEXORA AI PREMIUM DESIGN ===== */
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  background: #030711 !important;
-  color: #ffffff !important;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  background: rgba(3, 7, 17, 0.95) !important;
-  border-bottom: 1px solid rgba(65, 145, 255, 0.25);
-  padding: 16px 6% !important;
-}
-
-.brand {
-  font-size: 23px !important;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-.brand span,
-.hero h1 span {
-  color: #168cff !important;
-}
-
-/* HERO SPACE BACKGROUND */
-
-.hero {
-  position: relative;
-  isolation: isolate;
-  min-height: 620px;
-  padding: 90px 20px 65px !important;
-  overflow: hidden;
-  border: 1px solid #173c70;
-  border-radius: 20px;
-  background:
-    linear-gradient(90deg, rgba(2,6,18,.96), rgba(2,6,18,.55), rgba(2,6,18,.15)),
-    linear-gradient(0deg, #030711 0%, transparent 45%),
-    url("https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=1600")
-    center right / cover no-repeat !important;
-  box-shadow: 0 0 45px rgba(0,110,255,.13);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 850px;
-  margin: auto;
-  text-align: center;
-}
-
-.eyebrow {
-  color: #45aaff !important;
-  font-size: 12px;
-  letter-spacing: 3px;
-  font-weight: 700;
-  margin-bottom: 24px;
-}
-
-.hero h1 {
-  font-size: clamp(42px, 8vw, 76px) !important;
-  font-weight: 900;
-  letter-spacing: -2px;
-  margin: 15px 0;
-  text-shadow: 0 0 30px rgba(0,120,255,.3);
-}
-
-.hero h2 {
-  font-size: clamp(20px, 4vw, 30px);
-  margin: 10px 0;
-  color: #eaf3ff;
-}
-
-.hero .subtitle {
-  max-width: 550px;
-  margin: 18px auto;
-  color: #b9c9df !important;
-  line-height: 1.7;
-}
-
-/* SEARCH BAR */
-
-.searchbox {
-  max-width: 650px;
-  margin: 35px auto 0 !important;
-  padding: 12px 16px !important;
-  background: rgba(5, 13, 30, .92) !important;
-  border: 1px solid #268cff !important;
-  border-radius: 50px !important;
-  box-shadow: 0 0 28px rgba(0,110,255,.25);
-}
-
-.searchbox textarea {
-  width: 100%;
-  min-height: 45px;
-  background: transparent !important;
-  color: white !important;
-  border: none !important;
-  outline: none;
-  resize: vertical;
-  font-size: 16px;
-  padding: 10px;
-}
-
-.searchrow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  color: #73baff;
-  font-size: 13px;
-}
-
-.primary {
-  background: linear-gradient(120deg, #087cff, #513bff) !important;
-  color: white !important;
-  border: none !important;
-  border-radius: 30px !important;
-  padding: 12px 22px !important;
-  font-weight: 700;
+  .chat-header{padding:12px}
+  .chat-actions{gap:5px}
+  .chat-action{padding:8px;font-size:11px}
+  #chat-messages{min-height:280px}
+  .message-content{max-width:94%}
 }
 </style>
 </head>
+
 <body>
+
 <header>
-  <div class="brand"><span class="logo">◖▰◗</span><div>NEXORA <span>AI</span></div></div>
-  <button class="menu" onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})" aria-label="Explore tools">☰</button>
+  <div class="brand">
+    <span class="logo">◖▰◗</span>
+    <div>NEXORA <span>AI</span></div>
+  </div>
+
+  <button class="menu"
+  onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})">
+  ☰
+  </button>
 </header>
+
 <main>
-  <section class="hero">
+
+<section class="hero">
   <div class="hero-content">
 
     <div class="eyebrow">✦ THE NEXT GENERATION OF INTELLIGENCE</div>
@@ -406,29 +580,88 @@ header {
     </div>
   </div>
 </section>
-  <footer>NEXORA AI · THINK BEYOND, DISCOVER MORE</footer>
+
+<section id="chat-panel">
+
+  <div class="chat-header">
+    <div class="chat-brand">NEXORA <span>AI</span></div>
+
+    <div class="chat-actions">
+      <button class="chat-action" onclick="toggleHistory()">
+        ☷ History
+      </button>
+
+      <button class="chat-action" onclick="newChat()">
+        + New Chat
+      </button>
+    </div>
+  </div>
+
+  <div id="history-panel">
+    <div class="history-title">YOUR PREVIOUS CHATS</div>
+    <div id="history-list"></div>
+  </div>
+
+  <div id="chat-messages"></div>
+
+  <div class="chat-composer">
+    <div class="composer-box">
+
+      <textarea
+        id="chat-question"
+        placeholder="Message NEXORA AI..."
+        rows="2"
+      ></textarea>
+
+      <div class="composer-bottom">
+        <small>AI can make mistakes. Verify important information.</small>
+        <button id="send-button" onclick="sendChat()">Send ↗</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="chat-note">
+    Your chat history is saved in this browser on this device.
+  </div>
+
+</section>
+
+<footer>NEXORA AI · THINK BEYOND, DISCOVER MORE</footer>
+
 </main>
+
 <nav>
-  <button class="active" onclick="goHome(this)"><b>⌂</b>Home</button>
-  <button onclick="chooseTool('AI Search',this)"><b>⌕</b>Search</button>
-  <button onclick="chooseTool('AI Chat',this)"><b>◌</b>Chat</button>
-  <button onclick="chooseTool('AI Answers',this)"><b>✧</b>Answers</button>
-  <button onclick="chooseTool('Smart Search',this)"><b>◎</b>Smart</button>
+  <button class="active" onclick="goHome(this)">
+    <b>⌂</b>Home
+  </button>
+
+  <button onclick="chooseTool('AI Search',this)">
+    <b>⌕</b>Search
+  </button>
+
+  <button onclick="chooseTool('AI Chat',this)">
+    <b>◌</b>Chat
+  </button>
+
+  <button onclick="chooseTool('AI Answers',this)">
+    <b>✧</b>Answers
+  </button>
+
+  <button onclick="chooseTool('Smart Search',this)">
+    <b>◎</b>Smart
+  </button>
 </nav>
+
 <script>
-let selectedTool='AI Search';
+let selectedTool = 'AI Search';
+
 function chooseTool(tool,button){
-  selectedTool=tool;
+  selectedTool = tool;
 
-  document.getElementById('prompt').placeholder =
-    tool+': Ask or describe what you need...';
+  const chatPanel = document.getElementById('chat-panel');
 
-  const chatPanel=document.getElementById('chat-panel');
-
-  if(chatPanel){
-    chatPanel.style.display =
-      tool==='AI Chat'?'block':'none';
-  }
+  chatPanel.style.display = tool === 'AI Chat' ? 'block' : 'none';
 
   if(button){
     document.querySelectorAll('nav button').forEach(b=>{
@@ -437,7 +670,7 @@ function chooseTool(tool,button){
     button.classList.add('active');
   }
 
-  if(tool==='AI Chat' && chatPanel){
+  if(tool === 'AI Chat'){
     chatPanel.scrollIntoView({
       behavior:'smooth',
       block:'start'
@@ -449,58 +682,358 @@ function chooseTool(tool,button){
     });
     document.getElementById('prompt').focus();
   }
-  }
-function goHome(button){
- document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
- button.classList.add('active');
- window.scrollTo({top:0,behavior:'smooth'});
 }
-function askNexora(){
- const q=document.getElementById('prompt').value.trim();
- const r=document.getElementById('result');
- r.style.display='block';
- r.textContent=q?'Your idea: '+q+'\n\nSelected workspace: '+selectedTool+'\n\nThe NEXORA AI interface is ready. To generate real AI answers, we will connect a suitable AI service in a later step.':'Type a question or idea above to get started.';
- r.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-</script>
- <section id="chat-panel" style="display:none;margin:20px 0;padding:18px;background:#11172a;border:1px solid #252e49;border-radius:16px;color:#f4f6ff;">
-  <h2 style="margin-bottom:10px;color:#91aaff;">NEXORA AI Chat</h2>
-  <p style="color:#929db9;margin-bottom:15px;">Ask a question and explore your ideas.</p>
-  <textarea id="chat-question" placeholder="Type your message..." style="width:100%;min-height:90px;padding:12px;background:#090c19;color:white;border:1px solid #35415f;border-radius:10px;"></textarea>
-  <button onclick="sendChat()" style="margin-top:12px;padding:12px 18px;background:#91aaff;color:#090c19;border:0;border-radius:10px;font-weight:bold;">Send ↗</button>
-  <div id="chat-reply" style="margin-top:15px;white-space:pre-wrap;line-height:1.6;"></div>
-</section>
-<script>
-async function sendChat(){
-  const q = document.getElementById('chat-question');
-  const r = document.getElementById('chat-reply');
-  const message = q.value.trim();
 
-  if(!message){
-    r.textContent = "Please enter a message.";
+function goHome(button){
+  document.querySelectorAll('nav button').forEach(b=>{
+    b.classList.remove('active');
+  });
+
+  button.classList.add('active');
+
+  document.getElementById('chat-panel').style.display = 'none';
+
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function askNexora(){
+  const q = document.getElementById('prompt').value.trim();
+  const r = document.getElementById('result');
+
+  r.style.display = 'block';
+
+  r.textContent = q
+    ? 'Your idea: ' + q +
+      '\n\nSelected workspace: ' + selectedTool +
+      '\n\nThis workspace is ready for its AI integration.'
+    : 'Type a question or idea above to get started.';
+
+  r.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* CHAT HISTORY STORAGE */
+
+const STORAGE_KEY = 'nexora_chats_v1';
+
+let conversations = [];
+let currentChatId = null;
+let isSending = false;
+
+function makeId(){
+  return Date.now().toString(36) +
+    Math.random().toString(36).slice(2);
+}
+
+function saveChats(){
+  try{
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(conversations)
+    );
+  }catch(error){
+    console.error('Chat save failed:',error);
+  }
+}
+
+function loadChats(){
+  try{
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if(saved){
+      const parsed = JSON.parse(saved);
+
+      if(Array.isArray(parsed)){
+        conversations = parsed.filter(c =>
+          c &&
+          typeof c.id === 'string' &&
+          Array.isArray(c.messages)
+        );
+      }
+    }
+  }catch(error){
+    conversations = [];
+  }
+
+  if(conversations.length === 0){
+    createConversation();
+  }else{
+    currentChatId = conversations[0].id;
+  }
+
+  renderChat();
+  renderHistory();
+}
+
+function getCurrentChat(){
+  return conversations.find(c => c.id === currentChatId);
+}
+
+function createConversation(){
+  const chat = {
+    id: makeId(),
+    title: 'New Chat',
+    updatedAt: Date.now(),
+    messages: []
+  };
+
+  conversations.unshift(chat);
+  currentChatId = chat.id;
+
+  saveChats();
+  return chat;
+}
+
+function newChat(){
+  if(isSending) return;
+
+  createConversation();
+
+  document.getElementById('chat-question').value = '';
+
+  renderChat();
+  renderHistory();
+
+  document.getElementById('history-panel').style.display = 'none';
+
+  document.getElementById('chat-panel').scrollIntoView({
+    behavior:'smooth',
+    block:'start'
+  });
+
+  document.getElementById('chat-question').focus();
+}
+
+function toggleHistory(){
+  const panel = document.getElementById('history-panel');
+
+  panel.style.display =
+    panel.style.display === 'block' ? 'none' : 'block';
+
+  renderHistory();
+}
+
+function openChat(id){
+  if(isSending) return;
+
+  const chat = conversations.find(c => c.id === id);
+
+  if(!chat) return;
+
+  currentChatId = id;
+
+  document.getElementById('history-panel').style.display = 'none';
+
+  renderChat();
+  renderHistory();
+
+  document.getElementById('chat-messages').scrollTop =
+    document.getElementById('chat-messages').scrollHeight;
+}
+
+function renderHistory(){
+  const list = document.getElementById('history-list');
+  list.textContent = '';
+
+  if(conversations.length === 0){
+    list.textContent = 'No previous chats yet.';
     return;
   }
 
-  r.textContent = "Thinking...";
+  conversations
+    .slice()
+    .sort((a,b) => b.updatedAt - a.updatedAt)
+    .forEach(chat=>{
+      const button = document.createElement('button');
+
+      button.className = 'history-item' +
+        (chat.id === currentChatId ? ' active' : '');
+
+      button.textContent = chat.title || 'New Chat';
+
+      button.onclick = () => openChat(chat.id);
+
+      list.appendChild(button);
+    });
+}
+
+function renderChat(){
+  const area = document.getElementById('chat-messages');
+  area.textContent = '';
+
+  const chat = getCurrentChat();
+
+  if(!chat || chat.messages.length === 0){
+    const empty = document.createElement('div');
+    empty.className = 'empty-chat';
+
+    const heading = document.createElement('h2');
+    heading.textContent = 'What can I help with?';
+
+    const paragraph = document.createElement('p');
+    paragraph.textContent =
+      'Ask anything. Explore ideas, learn something new and start a conversation with NEXORA AI.';
+
+    empty.appendChild(heading);
+    empty.appendChild(paragraph);
+
+    area.appendChild(empty);
+    return;
+  }
+
+  chat.messages.forEach(message=>{
+    addMessageToScreen(message.role,message.content);
+  });
+
+  area.scrollTop = area.scrollHeight;
+}
+
+function addMessageToScreen(role,content,isError=false){
+  const area = document.getElementById('chat-messages');
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'message ' +
+    (role === 'user' ? 'user' : 'assistant') +
+    (isError ? ' error' : '');
+
+  const label = document.createElement('div');
+  label.className = 'message-label';
+  label.textContent = role === 'user' ? 'You' : 'NEXORA AI';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'message-content';
+  bubble.textContent = content;
+
+  wrapper.appendChild(label);
+  wrapper.appendChild(bubble);
+
+  area.appendChild(wrapper);
+  area.scrollTop = area.scrollHeight;
+
+  return bubble;
+}
+
+async function sendChat(){
+  if(isSending) return;
+
+  const input = document.getElementById('chat-question');
+  const button = document.getElementById('send-button');
+
+  const message = input.value.trim();
+
+  if(!message) return;
+
+  let chat = getCurrentChat();
+
+  if(!chat){
+    chat = createConversation();
+  }
+
+  const history = chat.messages
+    .slice(-12)
+    .map(m=>({
+      role:m.role,
+      content:m.content
+    }));
+
+  chat.messages.push({
+    role:'user',
+    content:message
+  });
+
+  if(chat.messages.length === 1){
+    chat.title = message.slice(0,45) +
+      (message.length > 45 ? '...' : '');
+  }
+
+  chat.updatedAt = Date.now();
+
+  saveChats();
+
+  input.value = '';
+
+  addMessageToScreen('user',message);
+
+  const thinkingBubble = addMessageToScreen(
+    'assistant',
+    'Thinking...'
+  );
+
+  isSending = true;
+  button.disabled = true;
+  button.textContent = 'Wait...';
 
   try{
     const response = await fetch('/api/chat',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({message})
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        message,
+        history
+      })
     });
 
     const data = await response.json();
 
     if(!response.ok){
-      throw new Error(data.error || "AI request failed");
+      throw new Error(data.error || 'AI request failed');
     }
 
-    r.textContent = data.reply;
+    if(!data.reply || typeof data.reply !== 'string'){
+      throw new Error('AI returned an empty response');
+    }
+
+    thinkingBubble.textContent = data.reply;
+
+    chat.messages.push({
+      role:'assistant',
+      content:data.reply
+    });
+
+    chat.updatedAt = Date.now();
+
+    saveChats();
+    renderHistory();
+
   }catch(error){
-    r.textContent = "Error: " + error.message;
+    const errorMessage =
+      'Sorry, something went wrong: ' + error.message;
+
+    thinkingBubble.textContent = errorMessage;
+
+    const wrapper = thinkingBubble.parentElement;
+    wrapper.classList.add('error');
+
+    chat.messages.push({
+      role:'assistant',
+      content:errorMessage
+    });
+
+    saveChats();
+
+  }finally{
+    isSending = false;
+    button.disabled = false;
+    button.textContent = 'Send ↗';
+    input.focus();
   }
+}
+
+/* ENTER TO SEND, SHIFT+ENTER FOR NEW LINE */
+
+document.getElementById('chat-question').addEventListener(
+  'keydown',
+  function(event){
+    if(event.key === 'Enter' && !event.shiftKey){
+      event.preventDefault();
+      sendChat();
+    }
   }
+);
+
+loadChats();
 </script>
+
 </body>
-</html>
+  </html>
