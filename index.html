@@ -47,11 +47,7 @@ header{
   font-size:19px;
 }
 
-.logo{
-  font-size:29px;
-  color:#91aaff;
-}
-
+.logo{font-size:29px;color:#91aaff}
 .brand span:last-child{color:var(--blue)}
 
 .menu{
@@ -229,7 +225,7 @@ footer{
   border-top:1px solid #252a33;
 }
 
-/* PREMIUM CHAT INTERFACE */
+/* CHAT */
 
 #chat-panel{
   display:none;
@@ -240,6 +236,7 @@ footer{
   border:1px solid #e5e7eb;
   overflow:hidden;
   box-shadow:0 12px 40px rgba(0,0,0,.15);
+  scroll-margin-top:85px;
 }
 
 .chat-header{
@@ -260,10 +257,7 @@ footer{
 
 .chat-brand span{color:#647fe4}
 
-.chat-actions{
-  display:flex;
-  gap:8px;
-}
+.chat-actions{display:flex;gap:8px}
 
 .chat-action{
   border:1px solid #e1e4e8;
@@ -316,6 +310,7 @@ footer{
   padding:18px 14px;
   background:#fff;
   scroll-behavior:smooth;
+  overscroll-behavior:contain;
 }
 
 .empty-chat{
@@ -425,9 +420,7 @@ footer{
   font-weight:700;
 }
 
-#send-button:disabled{
-  opacity:.5;
-}
+#send-button:disabled{opacity:.5}
 
 .chat-note{
   text-align:center;
@@ -655,6 +648,33 @@ nav button.active{color:var(--blue)}
 
 <script>
 let selectedTool = 'AI Search';
+let chatViewActive = false;
+
+/* BACK BUTTON SUPPORT */
+
+function showHomeView(){
+  document.getElementById('chat-panel').style.display = 'none';
+
+  document.querySelectorAll('nav button').forEach(b=>{
+    b.classList.remove('active');
+  });
+
+  document.querySelector('nav button').classList.add('active');
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+
+window.addEventListener('popstate',()=>{
+  if(chatViewActive){
+    chatViewActive = false;
+    showHomeView();
+  }
+});
+
+/* NAVIGATION */
 
 function chooseTool(tool,button){
   selectedTool = tool;
@@ -671,29 +691,36 @@ function chooseTool(tool,button){
   }
 
   if(tool === 'AI Chat'){
+
+    if(!chatViewActive){
+      history.pushState({nexoraChat:true},'','#chat');
+      chatViewActive = true;
+    }
+
     chatPanel.scrollIntoView({
       behavior:'smooth',
       block:'start'
     });
+
     document.getElementById('chat-question').focus();
+
   }else{
     document.getElementById('tools').scrollIntoView({
       behavior:'smooth'
     });
+
     document.getElementById('prompt').focus();
   }
 }
 
 function goHome(button){
-  document.querySelectorAll('nav button').forEach(b=>{
-    b.classList.remove('active');
-  });
 
-  button.classList.add('active');
+  if(chatViewActive){
+    history.back();
+    return;
+  }
 
-  document.getElementById('chat-panel').style.display = 'none';
-
-  window.scrollTo({top:0,behavior:'smooth'});
+  showHomeView();
 }
 
 function askNexora(){
@@ -711,7 +738,7 @@ function askNexora(){
   r.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-/* CHAT HISTORY STORAGE */
+/* CHAT HISTORY */
 
 const STORAGE_KEY = 'nexora_chats_v1';
 
@@ -826,8 +853,7 @@ function openChat(id){
   renderChat();
   renderHistory();
 
-  document.getElementById('chat-messages').scrollTop =
-    document.getElementById('chat-messages').scrollHeight;
+  scrollChatToBottom();
 }
 
 function renderHistory(){
@@ -854,6 +880,19 @@ function renderHistory(){
 
       list.appendChild(button);
     });
+}
+
+/* AUTOMATIC CHAT SCROLL */
+
+function scrollChatToBottom(){
+  const area = document.getElementById('chat-messages');
+
+  requestAnimationFrame(()=>{
+    area.scrollTo({
+      top:area.scrollHeight,
+      behavior:'smooth'
+    });
+  });
 }
 
 function renderChat(){
@@ -884,7 +923,7 @@ function renderChat(){
     addMessageToScreen(message.role,message.content);
   });
 
-  area.scrollTop = area.scrollHeight;
+  scrollChatToBottom();
 }
 
 function addMessageToScreen(role,content,isError=false){
@@ -907,10 +946,13 @@ function addMessageToScreen(role,content,isError=false){
   wrapper.appendChild(bubble);
 
   area.appendChild(wrapper);
-  area.scrollTop = area.scrollHeight;
+
+  scrollChatToBottom();
 
   return bubble;
 }
+
+/* SEND MESSAGE */
 
 async function sendChat(){
   if(isSending) return;
@@ -996,7 +1038,10 @@ async function sendChat(){
     saveChats();
     renderHistory();
 
+    scrollChatToBottom();
+
   }catch(error){
+
     const errorMessage =
       'Sorry, something went wrong: ' + error.message;
 
@@ -1006,34 +1051,4 @@ async function sendChat(){
     wrapper.classList.add('error');
 
     chat.messages.push({
-      role:'assistant',
-      content:errorMessage
-    });
-
-    saveChats();
-
-  }finally{
-    isSending = false;
-    button.disabled = false;
-    button.textContent = 'Send ↗';
-    input.focus();
-  }
-}
-
-/* ENTER TO SEND, SHIFT+ENTER FOR NEW LINE */
-
-document.getElementById('chat-question').addEventListener(
-  'keydown',
-  function(event){
-    if(event.key === 'Enter' && !event.shiftKey){
-      event.preventDefault();
-      sendChat();
-    }
-  }
-);
-
-loadChats();
-</script>
-
-</body>
-  </html>
+      role:
