@@ -430,6 +430,27 @@ footer{
   background:#fff;
 }
 
+
+/* CHAT HISTORY SIDEBAR */
+#sidebar{
+  position:fixed; top:72px; left:0; bottom:0; width:280px;
+  z-index:900; display:none; overflow-y:auto;
+  padding:16px; background:#0d1324; border-right:1px solid var(--line);
+  box-shadow:12px 0 35px rgba(0,0,0,.25);
+}
+#sidebar.open{display:block}
+.sidebar-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:16px}
+.sidebar-title{font-size:13px;letter-spacing:1px;color:#cbd6f2;font-weight:700}
+.sidebar-new{border:1px solid #35558b;background:#14264a;color:#fff;border-radius:10px;padding:9px 11px;font-size:12px}
+#history-list{display:flex;flex-direction:column;gap:7px}
+.history-item{width:100%;display:block;text-align:left;padding:12px;border:1px solid #222f4b;background:#111a30;border-radius:10px;color:#dce5ff;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.history-item.active{border-color:#648cff;background:#1a2a50}
+.sidebar-empty{color:var(--muted);font-size:12px;padding:10px 2px}
+#sidebar-shade{display:none;position:fixed;inset:72px 0 0;z-index:850;background:rgba(0,0,0,.48)}
+#sidebar-shade.show{display:block}
+@media(min-width:850px){body.sidebar-open main{margin-left:280px}body.sidebar-open header{padding-left:20px}}
+@media(max-width:849px){#sidebar{width:min(82vw,300px)}body.sidebar-open{overflow:hidden}}
+
 nav{
   position:fixed;
   bottom:0;
@@ -488,11 +509,17 @@ nav button.active{color:var(--blue)}
     <div>NEXORA <span>AI</span></div>
   </div>
 
-  <button class="menu"
-  onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})">
-  ☰
-  </button>
+  <button class="menu" onclick="toggleSidebar()" aria-label="Open chat history">☰</button>
 </header>
+
+<aside id="sidebar" aria-label="Chat history">
+  <div class="sidebar-top">
+    <div class="sidebar-title">YOUR CHATS</div>
+    <button class="sidebar-new" onclick="newChat()">＋ New chat</button>
+  </div>
+  <div id="history-list"></div>
+</aside>
+<div id="sidebar-shade" onclick="toggleSidebar(false)"></div>
 
 <main>
 
@@ -580,7 +607,7 @@ nav button.active{color:var(--blue)}
     <div class="chat-brand">NEXORA <span>AI</span></div>
 
     <div class="chat-actions">
-      <button class="chat-action" onclick="toggleHistory()">
+      <button class="chat-action" onclick="toggleSidebar()">
         ☷ History
       </button>
 
@@ -588,11 +615,6 @@ nav button.active{color:var(--blue)}
         + New Chat
       </button>
     </div>
-  </div>
-
-  <div id="history-panel">
-    <div class="history-title">YOUR PREVIOUS CHATS</div>
-    <div id="history-list"></div>
   </div>
 
   <div id="chat-messages"></div>
@@ -650,77 +672,57 @@ nav button.active{color:var(--blue)}
 let selectedTool = 'AI Search';
 let chatViewActive = false;
 
-/* BACK BUTTON SUPPORT */
-
 function showHomeView(){
   document.getElementById('chat-panel').style.display = 'none';
-
-  document.querySelectorAll('nav button').forEach(b=>{
-    b.classList.remove('active');
-  });
-
+  document.body.classList.remove('sidebar-open');
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-shade').classList.remove('show');
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   document.querySelector('nav button').classList.add('active');
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 window.addEventListener('popstate',()=>{
-  if(chatViewActive){
+  if(location.hash !== '#chat'){
     chatViewActive = false;
     showHomeView();
+  }else{
+    chatViewActive = true;
+    document.getElementById('chat-panel').style.display = 'block';
   }
 });
 
-/* NAVIGATION */
-
 function chooseTool(tool,button){
   selectedTool = tool;
-
   const chatPanel = document.getElementById('chat-panel');
-
-  chatPanel.style.display = tool === 'AI Chat' ? 'block' : 'none';
-
-  if(button){
-    document.querySelectorAll('nav button').forEach(b=>{
-      b.classList.remove('active');
-    });
-    button.classList.add('active');
-  }
-
   if(tool === 'AI Chat'){
-
-    if(!chatViewActive){
-      history.pushState({nexoraChat:true},'','#chat');
-      chatViewActive = true;
-    }
-
-    chatPanel.scrollIntoView({
-      behavior:'smooth',
-      block:'start'
-    });
-
-    document.getElementById('chat-question').focus();
-
+    chatPanel.style.display = 'block';
+    if(!chatViewActive){ history.pushState({nexoraChat:true},'','#chat'); chatViewActive = true; }
+    if(button){ document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active')); button.classList.add('active'); }
+    chatPanel.scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('chat-question').focus({preventScroll:true});
   }else{
-    document.getElementById('tools').scrollIntoView({
-      behavior:'smooth'
-    });
-
-    document.getElementById('prompt').focus();
+    chatPanel.style.display = 'none';
+    if(button){ document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active')); button.classList.add('active'); }
+    document.getElementById('tools').scrollIntoView({behavior:'smooth'});
+    document.getElementById('prompt').focus({preventScroll:true});
   }
 }
 
-function goHome(button){
-
-  if(chatViewActive){
-    history.back();
-    return;
-  }
-
+function goHome(){
+  if(chatViewActive && location.hash === '#chat'){ history.back(); return; }
+  chatViewActive = false;
   showHomeView();
+}
+
+function toggleSidebar(force){
+  const sidebar=document.getElementById('sidebar');
+  const shade=document.getElementById('sidebar-shade');
+  const open=typeof force==='boolean' ? force : !sidebar.classList.contains('open');
+  sidebar.classList.toggle('open',open);
+  shade.classList.toggle('show',open);
+  document.body.classList.toggle('sidebar-open',open);
+  if(open) renderHistory();
 }
 
 function askNexora(){
@@ -741,6 +743,7 @@ function askNexora(){
 /* CHAT HISTORY */
 
 const STORAGE_KEY = 'nexora_chats_v1';
+const ACTIVE_CHAT_KEY = 'nexora_active_chat_v1';
 
 let conversations = [];
 let currentChatId = null;
@@ -757,6 +760,7 @@ function saveChats(){
       STORAGE_KEY,
       JSON.stringify(conversations)
     );
+    if(currentChatId) localStorage.setItem(ACTIVE_CHAT_KEY,currentChatId);
   }catch(error){
     console.error('Chat save failed:',error);
   }
@@ -784,11 +788,17 @@ function loadChats(){
   if(conversations.length === 0){
     createConversation();
   }else{
-    currentChatId = conversations[0].id;
+    const savedActiveId = localStorage.getItem(ACTIVE_CHAT_KEY);
+    currentChatId = conversations.some(c=>c.id===savedActiveId)
+      ? savedActiveId : conversations[0].id;
   }
 
   renderChat();
   renderHistory();
+  if(location.hash === '#chat'){
+    chatViewActive = true;
+    document.getElementById('chat-panel').style.display = 'block';
+  }
 }
 
 function getCurrentChat(){
@@ -820,7 +830,7 @@ function newChat(){
   renderChat();
   renderHistory();
 
-  document.getElementById('history-panel').style.display = 'none';
+  toggleSidebar(false);
 
   document.getElementById('chat-panel').scrollIntoView({
     behavior:'smooth',
@@ -828,15 +838,6 @@ function newChat(){
   });
 
   document.getElementById('chat-question').focus();
-}
-
-function toggleHistory(){
-  const panel = document.getElementById('history-panel');
-
-  panel.style.display =
-    panel.style.display === 'block' ? 'none' : 'block';
-
-  renderHistory();
 }
 
 function openChat(id){
@@ -847,8 +848,11 @@ function openChat(id){
   if(!chat) return;
 
   currentChatId = id;
+  saveChats();
+  document.getElementById('chat-panel').style.display='block';
+  if(!chatViewActive){ history.pushState({nexoraChat:true},'','#chat'); chatViewActive=true; }
 
-  document.getElementById('history-panel').style.display = 'none';
+  toggleSidebar(false);
 
   renderChat();
   renderHistory();
@@ -861,7 +865,10 @@ function renderHistory(){
   list.textContent = '';
 
   if(conversations.length === 0){
-    list.textContent = 'No previous chats yet.';
+    const empty=document.createElement('div');
+    empty.className='sidebar-empty';
+    empty.textContent='No previous chats yet.';
+    list.appendChild(empty);
     return;
   }
 
@@ -888,10 +895,8 @@ function scrollChatToBottom(){
   const area = document.getElementById('chat-messages');
 
   requestAnimationFrame(()=>{
-    area.scrollTo({
-      top:area.scrollHeight,
-      behavior:'smooth'
-    });
+    area.scrollTop = area.scrollHeight;
+    requestAnimationFrame(()=>{ area.scrollTop = area.scrollHeight; });
   });
 }
 
@@ -1072,8 +1077,14 @@ scrollChatToBottom();
 
 }
 
+document.getElementById('chat-question').addEventListener('keydown',event=>{
+  if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendChat(); }
+});
+
 loadChats();
 
 </script>
 </body>
 </html>
+
+  
