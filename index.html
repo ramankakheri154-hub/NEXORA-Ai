@@ -1051,4 +1051,29 @@ async function sendChat(){
     wrapper.classList.add('error');
 
     chat.messages.push({
-      role:
+  role: 'assistant',
+  content: errorMessage
+});
+
+chat.updatedAt = Date.now();
+
+saveChats();
+renderHistory();
+
+scrollChatToBottom();
+
+} finally {
+
+  isSending = false;
+  button.disabled = false;
+  button.textContent = 'Send ↗';
+
+}
+
+}
+
+loadChats();
+
+</script>
+</body>
+</html>
